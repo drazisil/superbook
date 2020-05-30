@@ -1,0 +1,7 @@
+books:
+  - rules:
+      name: "The Rules"
+      desc: "Do no evil"
+  - other:
+      name: "Other things..."
+      desc: "Stuff:"

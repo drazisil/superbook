@@ -1,0 +1,6 @@
+name: Rulebook
+version: @version@
+main: com.drazisil.rulebook.Rulebook
+api-version: "1.13"
+authors: [Drazisil]
+description: Create a rulebook, run commands when players agree
