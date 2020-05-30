@@ -13,6 +13,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public final class Rulebook extends JavaPlugin {
@@ -33,19 +34,9 @@ public final class Rulebook extends JavaPlugin {
 
         plugin.createCustomConfig();
 
-        List<?> books = plugin.getCustomConfig().getList("books");
+        List<Map<?, ?>> books = plugin.getCustomConfig().getMapList("books");
 
-        if (!(books == null)) {
-            logger.warning(String.format("%d books located.", books.size()));
-
-            @SuppressWarnings("unchecked")
-            BookManager bookManager = new BookManager((List<LinkedHashMap<String, String>>) books);
-        } else {
-            logger.warning("Unable to locate any books!");
-        }
-
-
-
+        BookManager bookManager = new BookManager(books);
     }
 
     @Override
