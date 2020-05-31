@@ -1,6 +1,27 @@
-name: Rulebook
+name: Superbook
 version: @version@
-main: com.drazisil.rulebook.Rulebook
+main: com.drazisil.superbook.SuperBook
 api-version: "1.13"
 authors: [Drazisil]
 description: Create a rulebook, run commands when players agree
+commands:
+  superbook:
+    description: Superbook management
+    aliases:
+      - sbook
+    usage: |
+      /superbook agree <book_key> <approval_code>
+      /superbook give <book_key> [count]
+      /superbook give <player> <book_key> [count]
+      /superbook list
+  superbook agree:
+    description: Agree to the book, using the book's approval code.
+    aliases:
+      - agree
+    usage: /agree <book name> <password>
+  superbook give:
+    description: Give a player (yourself if not specified) a book by it's key. Count is optional.
+    usage: |
+      /superbook give <book_key> [count]
+      /superbook give <player> <book_key> [count]
+

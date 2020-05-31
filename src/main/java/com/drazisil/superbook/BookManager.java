@@ -1,22 +1,25 @@
-package com.drazisil.rulebook;
+package com.drazisil.superbook;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class BookManager {
 
-    private List<SuperBook> books = new ArrayList<>();
+    private List<BookSuperBook> books = new ArrayList<>();
 
     BookManager(List<Map<?, ?>> rawBooksYaml) {
-        Rulebook.logger.info(String.format("RawBookYaml (%s): %s",
+        SuperBook.logger.info(String.format("RawBookYaml (%s): %s",
                 rawBooksYaml.getClass().getName(),
                 rawBooksYaml.toString()));
 
         for (Map<?, ?> book: rawBooksYaml) {
-            Rulebook.logger.info(String.format("Book: %s", book));
-            Rulebook.logger.info(String.format("Keys: %s", book.keySet().toArray()[0]));
-            Rulebook.logger.info(String.format("Values: %s", book.values().toArray()[0]));
+            SuperBook.logger.info(String.format("Book: %s", book));
+            SuperBook.logger.info(String.format("Keys: %s", book.keySet().toArray()[0]));
+            SuperBook.logger.info(String.format("Values: %s", book.values().toArray()[0]));
             @SuppressWarnings("unchecked")
-            SuperBook sbook = new SuperBook((HashMap<String, String>) book.values().toArray()[0]);
+            BookSuperBook sbook = new BookSuperBook((String) book.keySet().toArray()[0], (HashMap<String, String>) book.values().toArray()[0]);
             books.add(sbook);
         }
         listBooks();
@@ -43,9 +46,9 @@ public class BookManager {
 //    }
 
     private void listBooks() {
-        Rulebook.logger.info("Listing books...");
-        for (SuperBook book: books) {
-            Rulebook.logger.info(String.format("Name: %s", book.getName()));
+        SuperBook.logger.info("Listing books...");
+        for (BookSuperBook book: books) {
+            SuperBook.logger.info(String.format("Name: %s", book.getName()));
         }
     }
 
