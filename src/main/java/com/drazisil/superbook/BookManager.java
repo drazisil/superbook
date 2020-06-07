@@ -1,13 +1,10 @@
 package com.drazisil.superbook;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class BookManager {
 
-    private List<BookSuperBook> books = new ArrayList<>();
+    private final List<BookSuperBook> books = new ArrayList<>();
 
     BookManager(List<Map<?, ?>> rawBooksYaml) {
         SuperBook.logger.info(String.format("RawBookYaml (%s): %s",
@@ -22,34 +19,32 @@ public class BookManager {
             BookSuperBook sbook = new BookSuperBook((String) book.keySet().toArray()[0], (HashMap<String, String>) book.values().toArray()[0]);
             books.add(sbook);
         }
-        listBooks();
-
-    }
-
-
-//    BookManager(List<LinkedHashMap<String, String>> booksYaml) {
-//        if (booksYaml.size() <= 0) return;
-//
-//        for (LinkedHashMap<String, String> rawBook: booksYaml) {
-//
-//            // This is a single book
-//
-//            String bookKey = (String) rawBook.keySet().toArray()[0];
-//
-//            Rulebook.logger.info(String.format("rawBook: %s",rawBook.toString()));
-//            SuperBook book = new SuperBook(bookKey);
-//            Rulebook.logger.info(String.format("SuperBook: %s",book.toString()));
-//            books.add(book);
-//        }
-//
-//        listBooks();
-//    }
-
-    private void listBooks() {
         SuperBook.logger.info("Listing books...");
-        for (BookSuperBook book: books) {
-            SuperBook.logger.info(String.format("Name: %s", book.getName()));
+        ArrayList<String> bookList = listBooks();
+        for (String bookEntry: bookList) {
+            SuperBook.logger.info(bookEntry);
         }
+
     }
+
+
+    public ArrayList<String> listBooks() {
+
+        ArrayList<String> bookListing = new ArrayList<>();
+
+        for (BookSuperBook book: books) {
+            bookListing.add(String.format("Name: %s", book.getName()));
+        }
+        return bookListing;
+    }
+
+    public BookSuperBook getBookByKey(String bookKey) {
+
+        for (BookSuperBook book: books) {
+            if (book.getBookKey().equals(bookKey)) return book;
+        }
+        return null;
+    }
+
 
 }

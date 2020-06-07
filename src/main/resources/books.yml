@@ -2,6 +2,7 @@ books:
   - rules:
       name: "The Rules"
       desc: "Do no evil"
+      approval_code: "42"
   - other:
       name: "Other things..."
       desc: "Stuff:"

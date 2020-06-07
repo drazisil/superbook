@@ -9,21 +9,21 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import com.drazisil.superbook.command.CommandSuperBook;
-
 public final class SuperBook extends JavaPlugin {
-
-    public static final String MODID = "superbook";
 
     public static SuperBook plugin;
     public static Logger logger;
-    private String booksConfigFilename = "books.yml";
-    private File customConfigFile;
     private FileConfiguration booksConfig;
+
+    public BookManager getBookManager() {
+        return bookManager;
+    }
+
     private BookManager bookManager;
 
     @Override
@@ -43,7 +43,7 @@ public final class SuperBook extends JavaPlugin {
         // Register command handlers
         PluginCommand cmdSuperbook = plugin.getCommand("superbook");
         if (!(cmdSuperbook == null)) {
-            cmdSuperbook.setExecutor(new CommandSuperBook());
+            cmdSuperbook.setExecutor(new CommandHandler());
         } else {
             logger.severe("Unable to set command handler for superbook!");
         }
@@ -68,10 +68,17 @@ public final class SuperBook extends JavaPlugin {
     }
 
     private void saveBooksDefaultConfig() {
-        customConfigFile = new File(getDataFolder(), booksConfigFilename);
+        String booksConfigFilename = "books.yml";
+        File customConfigFile = new File(getDataFolder(), booksConfigFilename);
         if (!customConfigFile.exists()) {
-            customConfigFile.getParentFile().mkdirs();
-            saveResource(booksConfigFilename, false);
+            try {
+                if (customConfigFile.getParentFile().mkdirs()) {
+                    saveResource(booksConfigFilename, false);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
 
         booksConfig = new YamlConfiguration();
@@ -80,5 +87,12 @@ public final class SuperBook extends JavaPlugin {
         } catch (IOException | InvalidConfigurationException e) {
             e.printStackTrace();
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T[] arrayPop(T[] var0) {
+        Object[] var1 = Arrays.copyOfRange(var0, 1, -1);
+
+        return (T[]) var1;
     }
 }

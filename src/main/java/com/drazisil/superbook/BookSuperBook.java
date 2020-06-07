@@ -4,12 +4,12 @@ import java.util.*;
 
 public class BookSuperBook {
 
-    private String bookKey = "";
-    private String name = "";
-    private String desc = "";
-    private String cmd = "";
-    private final HashSet<String> pages = new HashSet<String>();
-    private String approvalCode = "";
+    private final String bookKey;
+    private final String name;
+    private final String desc;
+    private final String cmd;
+    private final HashSet<String> pages = new HashSet<>();
+    private final String approvalCode;
 
     public String getBookKey() {
         return bookKey;
@@ -33,7 +33,11 @@ public class BookSuperBook {
         this.name = book.get("name");
         this.desc = book.get("desc");
         this.cmd = book.get("cmd");
+
+        // Approval code could be a number or a string.
+        // TODO: find a way to not error if not a string in the YAML
         this.approvalCode = book.get("approval_code");
+
 
 
     }
