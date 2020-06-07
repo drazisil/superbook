@@ -91,7 +91,9 @@ public final class SuperBook extends JavaPlugin {
 
     @SuppressWarnings("unchecked")
     public static <T> T[] arrayPop(T[] var0) {
-        Object[] var1 = Arrays.copyOfRange(var0, 1, -1);
+        if (var0.length <= 1) return var0;
+
+        Object[] var1 = Arrays.copyOfRange(var0, 1, var0.length);
 
         return (T[]) var1;
     }

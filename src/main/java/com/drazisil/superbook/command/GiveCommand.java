@@ -52,19 +52,18 @@ public class GiveCommand extends AbstractCommand {
 
         String bookKey = args[1];
 
-        int bookCount = 0;
-
-
+        int bookCount = 1;
 
         if (args.length >= 3) {
             try {
-                bookCount = parseInt(args[1]);
-            } catch (NumberFormatException e) {
-                bookCount = 1;
+                bookCount = parseInt(args[2]);
+            } catch (NumberFormatException ignored) {
             }
         }
 
         giveBook(sender, playerToGive, bookKey, bookCount);
+
+        System.out.printf("%s, %s, %s, %d%n",sender, playerToGive, bookKey, bookCount);
 
         return true;
     }
