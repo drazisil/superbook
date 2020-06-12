@@ -72,13 +72,15 @@ public final class SuperBook extends JavaPlugin {
         File customConfigFile = new File(getDataFolder(), booksConfigFilename);
         if (!customConfigFile.exists()) {
             try {
-                if (customConfigFile.getParentFile().mkdirs()) {
-                    saveResource(booksConfigFilename, false);
-                }
+                saveResource(booksConfigFilename, false);
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
+        }
+
+        if (!customConfigFile.exists()) {
+            throw new Error("Unable to locate " + booksConfigFilename + " after saving!");
         }
 
         booksConfig = new YamlConfiguration();

@@ -8,7 +8,12 @@ public class BookSuperBook {
     private final String name;
     private final String desc;
     private final String cmd;
-    private final HashSet<String> pages = new HashSet<>();
+    private final String pages;
+
+    public String getPages() {
+        return pages;
+    }
+
     private final String approvalCode;
 
     public String getBookKey() {
@@ -27,16 +32,26 @@ public class BookSuperBook {
         return approvalCode;
     }
 
-    public BookSuperBook(String bookKey, HashMap<String, String> book) {
+    @SuppressWarnings("unchecked")
+    public BookSuperBook(String bookKey, HashMap<String, ?> book) {
 
         this.bookKey = bookKey;
-        this.name = book.get("name");
-        this.desc = book.get("desc");
-        this.cmd = book.get("cmd");
+        this.name = (String) book.get("name");
+        this.desc = (String) book.get("desc");
+        this.cmd = (String) book.get("cmd");
+
+        this.pages = String.valueOf(book.get("pages"));
+
+        for (String page:((ArrayList<String>) book.get("pages"))) {
+            System.out.printf("Page: %s%n", page);
+        }
+
+
+//        System.out.printf("Pages: %s%n", ((ArrayList<String>) book.get("pages")));
 
         // Approval code could be a number or a string.
         // TODO: find a way to not error if not a string in the YAML
-        this.approvalCode = book.get("approval_code");
+        this.approvalCode = (String) book.get("approval_code");
 
 
 

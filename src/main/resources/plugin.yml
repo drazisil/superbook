@@ -4,6 +4,23 @@ main: com.drazisil.superbook.SuperBook
 api-version: "1.13"
 authors: [Drazisil]
 description: Create a rulebook, run commands when players agree
+permissions:
+  superbook.agree:
+    description: Allow a player to agree to a book
+    default: true
+  superbook.give.*:
+    description: Wildcard give permission
+    default: op
+    children:
+      superbook.give.others: true
+      superbook.give.self: true
+  superbook.give.others:
+    description: Allows a player to give others a book
+    default: op
+  superbook.give.self:
+    description: Allows a player to give themself a book
+    default: op
+
 commands:
   superbook:
     description: Superbook management

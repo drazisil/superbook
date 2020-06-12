@@ -5,8 +5,6 @@ import com.drazisil.superbook.command.AbstractCommand;
 import org.bukkit.command.CommandSender;
 
 public class ReloadCommand extends AbstractCommand {
-    public ReloadCommand(CommandSender sender) {
-    }
 
     @Override
     public boolean execute(CommandSender sender, String[] args) {

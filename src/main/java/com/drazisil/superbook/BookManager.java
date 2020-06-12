@@ -15,8 +15,11 @@ public class BookManager {
             SuperBook.logger.info(String.format("Book: %s", book));
             SuperBook.logger.info(String.format("Keys: %s", book.keySet().toArray()[0]));
             SuperBook.logger.info(String.format("Values: %s", book.values().toArray()[0]));
+
             @SuppressWarnings("unchecked")
-            BookSuperBook sbook = new BookSuperBook((String) book.keySet().toArray()[0], (HashMap<String, String>) book.values().toArray()[0]);
+            BookSuperBook sbook = new BookSuperBook(
+                    (String) book.keySet().toArray()[0],
+                    (HashMap<String, String>) book.values().toArray()[0]);
             books.add(sbook);
         }
         SuperBook.logger.info("Listing books...");

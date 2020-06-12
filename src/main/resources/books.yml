@@ -3,6 +3,12 @@ books:
       name: "The Rules"
       desc: "Do no evil"
       approval_code: "42"
+      pages:
+        - "1. Respect all players/staff. No harassment, threats, racism, homophobia, transphobia, sexism… you get the idea."
+        - "2. No griefing. This includes destroying, stealing, changing, naming, or messing with in any way, something that is not yours. If you suspect someone has griefed, please submit a /ticket at the location with a brief description."
+        - "3. Player killing is allowed ONLY in designated areas. PVP is turned off in normal areas, but lava killing, death pits, trapping players with mobs, etc, is still prohibited."
+        - "4. No bug abuse or hacked clients. Please don’t break the game."
+        - "5. This is not a complete list. Staff can and will use their discretion in any given situation, up to and including banning. Basically, just be chill and we'll all get along"
   - other:
       name: "Other things..."
       desc: "Stuff:"

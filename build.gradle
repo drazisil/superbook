@@ -1,10 +1,10 @@
 apply plugin: 'java'
 
-group = pluginGroup
-version = pluginVersion
+group = pluginGroup as Object
+version = pluginVersion as Object
 
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
+//sourceCompatibility = '1.8'
+//targetCompatibility = '1.8'
 
 repositories {
     mavenCentral()

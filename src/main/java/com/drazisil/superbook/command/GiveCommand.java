@@ -2,10 +2,7 @@ package com.drazisil.superbook.command;
 
 import com.drazisil.superbook.BookSuperBook;
 import com.drazisil.superbook.SuperBook;
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.*;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -24,7 +21,12 @@ public class GiveCommand extends AbstractCommand {
     @Override
     public boolean execute(CommandSender sender, String[] args) {
 
+        System.out.println("In Give");
+
         if (!(hasMinArgs(args.length))) return false;
+
+        System.out.println("...");
+
 
         Player playerToGive;
 
@@ -75,19 +77,27 @@ public class GiveCommand extends AbstractCommand {
         ItemStack newBook = new ItemStack(Material.WRITTEN_BOOK, count);
         BookMeta bookMeta = (BookMeta) newBook.getItemMeta();
 
+        if (bookMeta == null) throw new Error("Unable to get book metadata!");
+
         // TODO: Create the book
 
         bookMeta.setTitle(bookSource.getName());
-        bookMeta.setAuthor("Neverland Staff");
+        bookMeta.setAuthor("The Neverland Staff");
+
+
+//        for (String page: bookSource.getPages()) {
+//            BaseComponent[] newPage = new ComponentBuilder(page).create();
+//            //add the page to the meta
+//            bookMeta.spigot().addPage(newPage);
+//        }
 
         //create a page
-        BaseComponent[] page = new ComponentBuilder("Click me")
-                .event(new ClickEvent(ClickEvent.Action.OPEN_URL, "http://spigotmc.org"))
-                .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("Go to the spigot website!").create()))
+        BaseComponent[] approvalPage = new ComponentBuilder("I agree to the rules of Project Neverland.")
+                .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/sbook agree rules " + bookSource.getApprovalCode()))
                 .create();
 
         //add the page to the meta
-        bookMeta.spigot().addPage(page);
+        bookMeta.spigot().addPage(approvalPage);
 
         newBook.setItemMeta(bookMeta);
 
