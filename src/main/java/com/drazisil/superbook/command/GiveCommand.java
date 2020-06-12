@@ -85,11 +85,11 @@ public class GiveCommand extends AbstractCommand {
         bookMeta.setAuthor("The Neverland Staff");
 
 
-//        for (String page: bookSource.getPages()) {
-//            BaseComponent[] newPage = new ComponentBuilder(page).create();
-//            //add the page to the meta
-//            bookMeta.spigot().addPage(newPage);
-//        }
+        for (String page: bookSource.getPages()) {
+            BaseComponent[] newPage = new ComponentBuilder(page).create();
+            //add the page to the meta
+            bookMeta.spigot().addPage(newPage);
+        }
 
         //create a page
         BaseComponent[] approvalPage = new ComponentBuilder("I agree to the rules of Project Neverland.")

@@ -8,9 +8,9 @@ public class BookSuperBook {
     private final String name;
     private final String desc;
     private final String cmd;
-    private final String pages;
+    private final ArrayList<String> pages;
 
-    public String getPages() {
+    public ArrayList<String> getPages() {
         return pages;
     }
 
@@ -40,11 +40,11 @@ public class BookSuperBook {
         this.desc = (String) book.get("desc");
         this.cmd = (String) book.get("cmd");
 
-        this.pages = String.valueOf(book.get("pages"));
+        this.pages = ((ArrayList<String>) book.get("pages"));
 
-        for (String page:((ArrayList<String>) book.get("pages"))) {
-            System.out.printf("Page: %s%n", page);
-        }
+//        for (String page:((ArrayList<String>) book.get("pages"))) {
+//            System.out.printf("Page: %s%n", page);
+//        }
 
 
 //        System.out.printf("Pages: %s%n", ((ArrayList<String>) book.get("pages")));
