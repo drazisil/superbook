@@ -1,11 +1,15 @@
 package com.drazisil.superbook;
 
 import com.drazisil.superbook.command.TabCompleteSuperBook;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.ScoreboardManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +23,13 @@ public final class SuperBook extends JavaPlugin {
     public static SuperBook plugin;
     public static Logger logger;
     private FileConfiguration booksConfig;
+
+    public static Objective getRulesObjective() {
+        return rulesObjective;
+    }
+
+    private static Scoreboard scoreboard;
+    private static Objective rulesObjective;
 
     public BookManager getBookManager() {
         return bookManager;
@@ -39,6 +50,29 @@ public final class SuperBook extends JavaPlugin {
         // Fetch books and populate the BookManager
         List<Map<?, ?>> books = plugin.getBooksConfig().getMapList("books");
         this.bookManager = new BookManager(books);
+
+        // Register the scoreboard and objective
+        ScoreboardManager scoreboardManager = getServer().getScoreboardManager();
+
+        if (!(scoreboardManager == null)) {
+            scoreboard = scoreboardManager.getMainScoreboard();
+        } else {
+            logger.severe("Unable to get default server scoreboard!");
+        }
+
+        rulesObjective = scoreboard.getObjective("superbook.rules_agreed");
+
+        if (rulesObjective == null) {
+            rulesObjective = scoreboard.registerNewObjective("rules_agreed","dummy", "rules_agreed");
+
+        }
+
+
+        // Register Event listeners
+        getServer().getPluginManager().registerEvents(new EventListener(), plugin);
+
+        int pluginId = 7829; // <-- Replace with the id of your plugin!
+        new Metrics(this, pluginId);
 
         // Register command handlers
         PluginCommand cmdSuperbook = plugin.getCommand("superbook");

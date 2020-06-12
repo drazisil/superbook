@@ -9,6 +9,8 @@ import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 
+import static com.drazisil.superbook.SuperBook.getRulesObjective;
+
 public class AgreeCommand extends AbstractCommand {
     @Override
     public boolean execute(CommandSender sender, String[] args) {
@@ -30,6 +32,7 @@ public class AgreeCommand extends AbstractCommand {
             ConsoleCommandSender console = sender.getServer().getConsoleSender();
 
             server.dispatchCommand(console, "lp user " + sender.getName() + " promote players");
+            getRulesObjective().getScore(sender.getName()).setScore(1);
 
             sender.sendMessage("You agreed!");
 
