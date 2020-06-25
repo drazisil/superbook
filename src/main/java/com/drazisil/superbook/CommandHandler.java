@@ -17,7 +17,6 @@ public class CommandHandler implements CommandExecutor {
             return cmd.execute(sender, args);
         }
 
-        System.out.println(args[0].toLowerCase());
         switch (args[0].toLowerCase()) {
             case "agree":
                 // /superbook agree <book_key> <approval_code>

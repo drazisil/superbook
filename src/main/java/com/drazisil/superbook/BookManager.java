@@ -7,14 +7,8 @@ public class BookManager {
     private final List<BookSuperBook> books = new ArrayList<>();
 
     BookManager(List<Map<?, ?>> rawBooksYaml) {
-//        SuperBook.logger.info(String.format("RawBookYaml (%s): %s",
-//                rawBooksYaml.getClass().getName(),
-//                rawBooksYaml.toString()));
 
         for (Map<?, ?> book: rawBooksYaml) {
-//            SuperBook.logger.info(String.format("Book: %s", book));
-//            SuperBook.logger.info(String.format("Keys: %s", book.keySet().toArray()[0]));
-//            SuperBook.logger.info(String.format("Values: %s", book.values().toArray()[0]));
 
             @SuppressWarnings("unchecked")
             BookSuperBook sbook = new BookSuperBook(

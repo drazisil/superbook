@@ -20,22 +20,14 @@ import java.util.logging.Logger;
 
 public final class SuperBook extends JavaPlugin {
 
-    public static SuperBook plugin;
     public static Logger logger;
-    private FileConfiguration booksConfig;
+    public static SuperBook plugin;
 
-    public static Objective getRulesObjective() {
-        return rulesObjective;
-    }
-
-    private static Scoreboard scoreboard;
+    private static FileConfiguration booksConfig;
+    private static BookManager bookManager;
+    private static File customConfigFile;
     private static Objective rulesObjective;
-
-    public BookManager getBookManager() {
-        return bookManager;
-    }
-
-    private BookManager bookManager;
+    private static Scoreboard scoreboard;
 
     @Override
     public void onEnable() {
@@ -47,9 +39,7 @@ public final class SuperBook extends JavaPlugin {
         plugin.saveDefaultConfig();
         plugin.saveBooksDefaultConfig();
 
-        // Fetch books and populate the BookManager
-        List<Map<?, ?>> books = plugin.getBooksConfig().getMapList("books");
-        this.bookManager = new BookManager(books);
+        loadBooksConfig();
 
         // Register the scoreboard and objective
         ScoreboardManager scoreboardManager = getServer().getScoreboardManager();
@@ -60,7 +50,7 @@ public final class SuperBook extends JavaPlugin {
             logger.severe("Unable to get default server scoreboard!");
         }
 
-        rulesObjective = scoreboard.getObjective("superbook.rules_agreed");
+        rulesObjective = scoreboard.getObjective("rules_agreed");
 
         if (rulesObjective == null) {
             rulesObjective = scoreboard.registerNewObjective("rules_agreed","dummy", "rules_agreed");
@@ -71,7 +61,7 @@ public final class SuperBook extends JavaPlugin {
         // Register Event listeners
         getServer().getPluginManager().registerEvents(new EventListener(), plugin);
 
-        int pluginId = 7829; // <-- Replace with the id of your plugin!
+        int pluginId = 7829;
         new Metrics(this, pluginId);
 
         // Register command handlers
@@ -98,12 +88,43 @@ public final class SuperBook extends JavaPlugin {
     }
 
     public FileConfiguration getBooksConfig() {
-        return this.booksConfig;
+        return booksConfig;
+    }
+
+    public static Objective getRulesObjective() {
+        return rulesObjective;
+    }
+
+    public BookManager getBookManager() {
+        return bookManager;
+    }
+
+    public static void loadBooksConfig() {
+        booksConfig = new YamlConfiguration();
+        try {
+            booksConfig.load(customConfigFile);
+        } catch (IOException | InvalidConfigurationException e) {
+            e.printStackTrace();
+        }
+
+        // Fetch books and populate the BookManager
+        List<Map<?, ?>> books = plugin.getBooksConfig().getMapList("books");
+        bookManager = new BookManager(books);
+
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T[] arrayPop(T[] var0) {
+        if (var0.length <= 1) return var0;
+
+        Object[] var1 = Arrays.copyOfRange(var0, 1, var0.length);
+
+        return (T[]) var1;
     }
 
     private void saveBooksDefaultConfig() {
         String booksConfigFilename = "books.yml";
-        File customConfigFile = new File(getDataFolder(), booksConfigFilename);
+        customConfigFile = new File(getDataFolder(), booksConfigFilename);
         if (!customConfigFile.exists()) {
             try {
                 saveResource(booksConfigFilename, false);
@@ -116,21 +137,6 @@ public final class SuperBook extends JavaPlugin {
         if (!customConfigFile.exists()) {
             throw new Error("Unable to locate " + booksConfigFilename + " after saving!");
         }
-
-        booksConfig = new YamlConfiguration();
-        try {
-            booksConfig.load(customConfigFile);
-        } catch (IOException | InvalidConfigurationException e) {
-            e.printStackTrace();
-        }
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T> T[] arrayPop(T[] var0) {
-        if (var0.length <= 1) return var0;
-
-        Object[] var1 = Arrays.copyOfRange(var0, 1, var0.length);
-
-        return (T[]) var1;
-    }
 }

@@ -21,17 +21,10 @@ public class GiveCommand extends AbstractCommand {
     @Override
     public boolean execute(CommandSender sender, String[] args) {
 
-        System.out.println("In Give");
-
         if (!(hasMinArgs(args.length))) return false;
-
-        System.out.println("...");
 
 
         Player playerToGive;
-
-        // /superbook give <book_key> [count]
-        // /superbook give <player> <book_key> [count]
 
         // Was a player specified?
         playerToGive = sender.getServer().getPlayer(args[1]);
@@ -48,6 +41,8 @@ public class GiveCommand extends AbstractCommand {
         } else {
             args = SuperBook.arrayPop(args);
         }
+
+        // TODO: Check for permissions
 
         // Is this a valid book?
         if (SuperBook.plugin.getBookManager().getBookByKey(args[1]) == null) return false;
@@ -79,9 +74,8 @@ public class GiveCommand extends AbstractCommand {
 
         if (bookMeta == null) throw new Error("Unable to get book metadata!");
 
-        // TODO: Create the book
-
         bookMeta.setTitle(bookSource.getName());
+        // TODO: Move author to config
         bookMeta.setAuthor("The Neverland Staff");
 
 
@@ -91,13 +85,19 @@ public class GiveCommand extends AbstractCommand {
             bookMeta.spigot().addPage(newPage);
         }
 
-        //create a page
-        BaseComponent[] approvalPage = new ComponentBuilder("I agree to the rules of Project Neverland.")
-                .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/sbook agree rules " + bookSource.getApprovalCode()))
-                .create();
+        // TODO: Move this to config.
+        // Add approval page to rules
+        if (bookKey.equals("rules")) {
+            //create a page
+            // TODO: Move command to config
+            BaseComponent[] approvalPage = new ComponentBuilder("Click on this page to agree...\n\nI agree to the rules of Project Neverland.")
+                    .event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/sbook agree rules " + bookSource.getApprovalCode()))
+                    .create();
 
-        //add the page to the meta
-        bookMeta.spigot().addPage(approvalPage);
+            //add the page to the meta
+            bookMeta.spigot().addPage(approvalPage);
+        }
+
 
         newBook.setItemMeta(bookMeta);
 

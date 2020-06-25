@@ -9,6 +9,22 @@ books:
         - "3. Player killing is allowed ONLY in designated areas. PVP is turned off in normal areas, but lava killing, death pits, trapping players with mobs, etc, is still prohibited."
         - "4. No bug abuse or hacked clients. Please don’t break the game."
         - "5. This is not a complete list. Staff can and will use their discretion in any given situation, up to and including banning. Basically, just be chill and we'll all get along"
+  - info:
+      name: "Info and Commands"
+      desc: "Stuff:"
+      pages:
+        - "Welcome to Project Neverland!\n\nHere is a list of commands you can use and general information about this server."
+        - "/sethome <name of home>\nCreate a new home. You can have up to 3 homes.\n\n/delhome  <name of home>\nDelete an existing home.\n\n/home     <name of home>\nTeleport to a home."
+        - "/tpa <player name>\nAsk to teleport to a player.\n\n/tpahere <player name>\nAsk a player to teleport to you.\n\n/tpayes, /tpano\nAccept or Reject a teleport request."
+        - "/fly\nToggle creative flight.\n\n/ticket\nRequest help from staff.\n\n/back\nReturn to the last place you teleported from."
+        - "\n\n/spawn\nTeleport to the mainworld spawn.\n\nYou can access the following at spawn:"
+        - "Mainworld: This is the world the spawn hub is in.\n\nYou may build anywhere that is not already claimed.\n\nPlease do not gather resources in Mainworld."
+        - "Resource world: This is the place to gather resources.\n\nThis world will be reset as needed."
+        - "The Nether: This is the only way to access the Nether.\n\nPersonal portals are disabled."
+        - "The End: Access to The End.\n\nStronghold End portals are also functional."
+        - "Warp Hub: Here you’ll find warps to other player's builds.\n\nTo have a warp set to your build, please create a /ticket\n\n"
   - other:
       name: "Other things..."
       desc: "Stuff:"
+      pages:
+        - "I'm not a real book, how did you find me!"
